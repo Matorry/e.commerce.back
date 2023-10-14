@@ -1,5 +1,5 @@
-import { HttpError } from '../entities/http.error.js';
 import { User } from '../entities/user.js';
+import { HttpError } from '../types/http.error.js';
 import { Repository } from './repository.js';
 import { UserModel } from './user.mongo.model.js';
 export class UsersMongoRepository implements Repository<User> {
