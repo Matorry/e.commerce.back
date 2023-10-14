@@ -2,7 +2,7 @@ import { User } from '../entities/user.js';
 import { HttpError } from '../types/http.error.js';
 import { Repository } from './repository.js';
 import { UserModel } from './user.mongo.model.js';
-export class UsersMongoRepository implements Repository<User> {
+export class UserMongoRepository implements Repository<User> {
   async getAll(): Promise<User[]> {
     const data = await UserModel.find().exec();
     return data;
