@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import { User } from '../entities/user';
-import { Repository } from '../repository/repository.js';
+import { UsersMongoRepository } from '../repository/user.mongo.repository';
 import { Auth } from '../services/auth.js';
 import { UsersController } from './user.controller.js';
+
 describe('Given the component UsersController', () => {
   describe('When we instantiate it ', () => {
-    const mockRepo: Repository<User> = {
+    const mockRepo: UsersMongoRepository = {
       getAll: jest.fn(),
       get: jest.fn(),
       post: jest.fn(),
@@ -23,7 +24,6 @@ describe('Given the component UsersController', () => {
       lastName: 'Martin',
       comands: [],
       age: '34',
-      gender: 'male',
     };
     const mockDataNoId = {
       userName: 'Matorry',
@@ -33,7 +33,6 @@ describe('Given the component UsersController', () => {
       lastName: 'Martin',
       comands: [],
       age: '34',
-      gender: 'male',
     };
     const mockRequest = {
       params: '1',
@@ -85,8 +84,9 @@ describe('Given the component UsersController', () => {
       expect(mockRepo.search).toHaveBeenCalled();
     });
   });
+
   describe('When we instantiate it with error', () => {
-    const mockRepo: Repository<User> = {
+    const mockRepo: UsersMongoRepository = {
       getAll: jest.fn().mockRejectedValue(new Error('GetAll error')),
       get: jest.fn().mockRejectedValue(new Error('Get error')),
       post: jest.fn().mockRejectedValue(new Error('Post error')),
@@ -144,17 +144,23 @@ describe('Given the component UsersController', () => {
         },
       ] as unknown as User;
       (mockRepo.search as jest.Mock).mockResolvedValueOnce([]);
+
       const mockRequest = {
         params: { id: '1' },
         body: { userName: '', password: '' },
       } as unknown as Request;
+
       const mockResponse = {
         json: jest.fn().mockResolvedValueOnce(mockData),
         status: jest.fn(),
       } as unknown as Response;
+
       const mockNext = jest.fn().mockResolvedValue(new Error()) as NextFunction;
+
       Auth.compare = jest.fn().mockResolvedValueOnce(false);
+
       await usersController.login(mockRequest, mockResponse, mockNext);
+
       expect(mockRepo.search).toHaveBeenCalled();
       expect(mockNext).toHaveBeenCalledWith(new Error('Login unauthorized'));
     });
@@ -162,12 +168,14 @@ describe('Given the component UsersController', () => {
       const mockRequest = {
         body: { username: 'Rodrigo', password: 'Rodrigo' },
       } as Request;
+
       (mockRepo.search as jest.Mock).mockResolvedValueOnce([
         {
           userName: '',
           password: '',
         } as unknown as Promise<User>,
       ]);
+
       await usersController.login(mockRequest, mockResponse, mockNext);
       expect(mockRepo.search).toHaveBeenCalled();
       (mockRepo.search as jest.Mock).mockRejectedValueOnce(
