@@ -10,11 +10,11 @@ export type UserNoId = LoginData & {
   lastName: string;
   email: string;
   age: string;
-  phone: number;
+  phone: string;
   addressStreet: string;
   postalCode: string;
   city: string;
-  title: 'Mr' | 'Mrs';
+  title: string;
   dateOfBirth: string;
   isAcceptingCommunications: boolean;
 };
