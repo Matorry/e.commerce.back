@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import { User } from '../entities/user';
-import { UsersMongoRepository } from '../repository/user.mongo.repository';
+import { UserMongoRepository } from '../repository/user.mongo.repository';
 import { Auth } from '../services/auth.js';
 import { UsersController } from './user.controller.js';
 
 describe('Given the component UsersController', () => {
   describe('When we instantiate it ', () => {
-    const mockRepo: UsersMongoRepository = {
+    const mockRepo: UserMongoRepository = {
       getAll: jest.fn(),
       get: jest.fn(),
       post: jest.fn(),
@@ -87,7 +87,7 @@ describe('Given the component UsersController', () => {
   });
 
   describe('When we instantiate it with error', () => {
-    const mockRepo: UsersMongoRepository = {
+    const mockRepo: UserMongoRepository = {
       getAll: jest.fn().mockRejectedValue(new Error('GetAll error')),
       get: jest.fn().mockRejectedValue(new Error('Get error')),
       post: jest.fn().mockRejectedValue(new Error('Post error')),

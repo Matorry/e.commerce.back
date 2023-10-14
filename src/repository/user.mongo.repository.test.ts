@@ -1,5 +1,5 @@
 import { UserModel } from './user.mongo.model.js';
-import { UsersMongoRepository } from './user.mongo.repository.js';
+import { UserMongoRepository } from './user.mongo.repository.js';
 jest.mock('fs/promises');
 describe('Given the class FilmMongoRepository', () => {
   const mockDataNoId = {
@@ -49,7 +49,7 @@ describe('Given the class FilmMongoRepository', () => {
     UserModel.findByIdAndDelete = jest
       .fn()
       .mockReturnValue({ exec: jest.fn().mockResolvedValue('ok') });
-    const repo = new UsersMongoRepository();
+    const repo = new UserMongoRepository();
     test('Then getAll should return data', async () => {
       const result = await repo.getAll();
       expect(result).toEqual([]);
@@ -76,7 +76,7 @@ describe('Given the class FilmMongoRepository', () => {
     });
   });
   describe('When i instance it', () => {
-    const repo = new UsersMongoRepository();
+    const repo = new UserMongoRepository();
     test('Then get should return error', async () => {
       const mockExec = jest.fn().mockResolvedValue(null);
       UserModel.findById = jest.fn().mockReturnValue({
