@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { LoginData, User } from '../entities/user.js';
-import { Repository } from '../repository/repository.js';
+import { UserMongoRepository } from '../repository/user.mongo.repository.js';
 import { Auth, TokenPayload } from '../services/auth.js';
 import { HttpError } from '../types/http.error.js';
 import { Controller } from './controller.js';
 export class UsersController extends Controller<User> {
-  constructor(protected repo: Repository<User>) {
+  constructor(protected repo: UserMongoRepository) {
     super(repo);
   }
 

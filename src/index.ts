@@ -13,7 +13,23 @@ dbConnect()
     server.emit('error', error);
   });
 server.on('listening', () => {
-  console.log('Listening on port ' + PORT);
+  const addressInfo = server.address();
+  if (addressInfo === null) {
+    server.emit('error', new Error('Invalid network address'));
+    return;
+  }
+
+  let bind: string;
+  if (typeof addressInfo === 'string') {
+    bind = 'pipe ' + addressInfo;
+  } else {
+    bind =
+      addressInfo.address === '::'
+        ? `http://localhost:${addressInfo?.port}`
+        : `port ${addressInfo?.port}`;
+  }
+
+  console.log(`Listening on${bind}`);
 });
 server.on('error', (error) => {
   console.log(`Error ${error.message}`);
