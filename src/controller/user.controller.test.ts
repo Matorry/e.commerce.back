@@ -17,27 +17,28 @@ describe('Given the component UsersController', () => {
     const usersController = new UsersController(mockRepo);
     const mockData = {
       id: '1',
-      userName: 'Matorry',
-      email: 'blablabla@blablabla.com',
+      userName: 'test',
+      email: 'test@test.com',
       password: '12345',
-      firstName: 'Rodrigo',
-      lastName: 'Martin',
+      firstName: 'test',
+      lastName: 'test',
       comands: [],
-      age: '34',
+      age: 'test',
     };
     const mockDataNoId = {
-      userName: 'Matorry',
-      email: 'blablabla@blablabla.com',
+      userName: 'test',
+      email: 'test@test.com',
       password: '12345',
-      firstName: 'Rodrigo',
-      lastName: 'Martin',
+      firstName: 'test',
+      lastName: 'test',
       comands: [],
-      age: '34',
+      age: 'test',
     };
     const mockRequest = {
       params: '1',
       body: {
         password: '12345',
+        userName: 'test',
       },
     } as unknown as Request;
     const mockResponse = {
