@@ -23,14 +23,6 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
   },
-  age: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: String,
-    required: true,
-  },
   addressStreet: {
     type: String,
     required: true,
@@ -41,18 +33,6 @@ const userSchema = new Schema<User>({
   },
   city: {
     type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  dateOfBirth: {
-    type: String,
-    required: true,
-  },
-  isAcceptingCommunications: {
-    type: Boolean,
     required: true,
   },
 });

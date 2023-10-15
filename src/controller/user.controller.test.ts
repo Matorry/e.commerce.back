@@ -42,7 +42,7 @@ describe('Given the component UsersController', () => {
       },
     } as unknown as Request;
     const mockResponse = {
-      json: jest.fn(),
+      json: jest.fn().mockReturnValue({ user: 'test', token: '1' }),
       status: jest.fn(),
     } as unknown as Response;
     const mockNext = jest.fn();
@@ -103,7 +103,7 @@ describe('Given the component UsersController', () => {
       },
     } as unknown as Request;
     const mockResponse = {
-      json: jest.fn(),
+      json: jest.fn().mockReturnValue({ user: 'test', token: '1' }),
     } as unknown as Response;
     const mockNext = jest.fn();
     test('then we should getAll with error', async () => {
