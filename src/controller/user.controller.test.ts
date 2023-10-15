@@ -6,15 +6,6 @@ import { UsersController } from './user.controller.js';
 
 describe('Given the component UsersController', () => {
   describe('When we instantiate it ', () => {
-    const mockRepo: UserMongoRepository = {
-      getAll: jest.fn(),
-      get: jest.fn(),
-      post: jest.fn(),
-      patch: jest.fn(),
-      delete: jest.fn(),
-      search: jest.fn(),
-    };
-    const usersController = new UsersController(mockRepo);
     const mockData = {
       id: '1',
       userName: 'test',
@@ -25,6 +16,16 @@ describe('Given the component UsersController', () => {
       comands: [],
       age: 'test',
     };
+    const mockRepo: UserMongoRepository = {
+      getAll: jest.fn(),
+      get: jest.fn(),
+      post: jest.fn(),
+      patch: jest.fn(),
+      delete: jest.fn(),
+      search: jest.fn().mockResolvedValue([mockData]),
+    };
+    const usersController = new UsersController(mockRepo);
+
     const mockDataNoId = {
       userName: 'test',
       email: 'test@test.com',
@@ -35,7 +36,7 @@ describe('Given the component UsersController', () => {
       age: 'test',
     };
     const mockRequest = {
-      params: '1',
+      params: { id: '1' },
       body: {
         password: '12345',
         userName: 'test',

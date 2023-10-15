@@ -10,7 +10,7 @@ export class UsersController extends Controller<User> {
   }
 
   async login(req: Request, res: Response, next: NextFunction) {
-    const { userName, password } = req.body as unknown as LoginData;
+    const { userName, password } = req.body as LoginData;
     const error = new HttpError(401, 'UnAuthorized', 'Login unauthorized');
     try {
       const data = await this.repo.search({ key: 'userName', value: userName });
