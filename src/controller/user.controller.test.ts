@@ -42,7 +42,7 @@ describe('Given the component UsersController', () => {
       },
     } as unknown as Request;
     const mockResponse = {
-      json: jest.fn().mockReturnValue({ user: 'test', token: '1' }),
+      json: jest.fn(),
       status: jest.fn(),
     } as unknown as Response;
     const mockNext = jest.fn();
@@ -83,6 +83,7 @@ describe('Given the component UsersController', () => {
       Auth.compare = jest.fn().mockReturnValue(true);
       await usersController.login(mockRequest, mockResponse, mockNext);
       expect(mockRepo.search).toHaveBeenCalled();
+      expect(mockResponse.json).toHaveBeenCalledWith(mockData);
     });
   });
 
