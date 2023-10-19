@@ -7,12 +7,14 @@ export type LoginData = {
   userName: string;
   password: string;
 };
+
 type Purchase = {
   products: Product[];
   date: string;
   amount: string;
   isOpen: boolean;
 };
+
 export type UserNoId = LoginData & {
   firstName: string;
   lastName: string;
