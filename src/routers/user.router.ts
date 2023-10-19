@@ -16,7 +16,15 @@ export class UsersRouter {
     this.router.post('/register', this.controller.post.bind(this.controller));
     this.router.get('/', this.controller.getAll.bind(this.controller));
     this.router.get('/:id', this.controller.get.bind(this.controller));
-    this.router.patch('/:id', this.controller.patch.bind(this.controller));
-    this.router.delete('/:id', this.controller.delete.bind(this.controller));
+    this.router.patch(
+      '/:id',
+      this.authInterceptor.authorization.bind(this.authInterceptor),
+      this.controller.patch.bind(this.controller)
+    );
+    this.router.delete(
+      '/:id',
+      this.authInterceptor.authorization.bind(this.authInterceptor),
+      this.controller.delete.bind(this.controller)
+    );
   }
 }

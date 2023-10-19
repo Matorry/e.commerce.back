@@ -52,7 +52,9 @@ export abstract class Controller<T extends { id: string | number }> {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { interceptorValidId: userId } = req.body;
+      console.log('delete 1');
+      const { validatedId: userId } = req.body;
+      console.log('delete 2', req.body);
       await this.repo.delete(userId);
       res.status(204);
       res.json({});

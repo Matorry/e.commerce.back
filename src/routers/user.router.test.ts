@@ -14,7 +14,7 @@ describe('Given UsersRouter', () => {
     const router = new UsersRouter(controller);
     test('Then it should ...', () => {
       expect(router).toBeInstanceOf(UsersRouter);
-      expect(Function.prototype.bind).toHaveBeenCalledTimes(6);
+      expect(Function.prototype.bind).toHaveBeenCalledTimes(8);
     });
   });
 });

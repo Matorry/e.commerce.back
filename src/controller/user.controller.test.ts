@@ -80,7 +80,6 @@ describe('Given the component UsersController', () => {
       expect(mockResponse.json).toHaveBeenCalledWith(mockData);
     });
     test('then we should login mockRepo have been called', async () => {
-      (mockRepo.search as jest.Mock).mockResolvedValue([mockData]);
       Auth.compare = jest.fn().mockReturnValue(true);
       await usersController.login(mockRequest, mockResponse, mockNext);
       expect(mockRepo.search).toHaveBeenCalled();
