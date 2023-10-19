@@ -8,14 +8,10 @@ describe('Given the class FilmMongoRepository', () => {
     password: '12345',
     firstName: 'test',
     lastName: 'test',
-    age: 'test',
-    phone: 'test',
     addressStreet: 'test',
     postalCode: 'test',
     city: 'test',
-    title: 'Mr',
-    dateOfBirth: 'test',
-    isAcceptingCommunications: true,
+    purchaseHistory: [],
   };
   describe('When i instance it', () => {
     const mockData = {
@@ -25,14 +21,10 @@ describe('Given the class FilmMongoRepository', () => {
       password: '12345',
       firstName: 'test',
       lastName: 'test',
-      age: 'test',
-      phone: 'test',
       addressStreet: 'test',
       postalCode: 'test',
       city: 'test',
-      title: 'Mr',
-      dateOfBirth: 'test',
-      isAcceptingCommunications: true,
+      purchaseHistory: [],
     };
 
     UserModel.find = jest
