@@ -16,7 +16,7 @@ describe('Given the class FilmMongoRepository', () => {
     author: {} as User,
   };
   describe('When i instance it', () => {
-    const mockData = {
+    const mockProduct = {
       id: '1',
       title: 'test',
       price: 1,
@@ -37,10 +37,10 @@ describe('Given the class FilmMongoRepository', () => {
       populate: jest.fn().mockReturnValue({}),
       exec: jest.fn().mockResolvedValueOnce({}),
     });
-    ProductModel.create = jest.fn().mockReturnValue(mockData);
+    ProductModel.create = jest.fn().mockReturnValue(mockProduct);
     ProductModel.findByIdAndUpdate = jest
       .fn()
-      .mockReturnValue({ exec: jest.fn().mockResolvedValue(mockData) });
+      .mockReturnValue({ exec: jest.fn().mockResolvedValue(mockProduct) });
     ProductModel.findByIdAndDelete = jest
       .fn()
       .mockReturnValue({ exec: jest.fn().mockResolvedValue('ok') });
@@ -54,16 +54,16 @@ describe('Given the class FilmMongoRepository', () => {
       expect(result).toEqual({});
     });
     test('Then patch should return data', async () => {
-      const result = await repo.patch(mockData.id, mockDataNoId);
-      expect(result).toEqual(mockData);
+      const result = await repo.patch(mockProduct.id, mockDataNoId);
+      expect(result).toEqual(mockProduct);
     });
     test('Then delete should return data', async () => {
-      const result = await repo.delete(mockData.id);
+      const result = await repo.delete(mockProduct.id);
       expect(result).toEqual(undefined);
     });
     test('Then post should return data', async () => {
       const result = await repo.post(mockDataNoId);
-      expect(result).toEqual(mockData);
+      expect(result).toEqual(mockProduct);
     });
     test('Then search should return data', async () => {
       const result = await repo.search({ key: '', value: '' });
