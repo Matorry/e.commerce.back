@@ -1,4 +1,4 @@
-import { Product } from './product';
+import { Purchase } from './purchase';
 
 export type WithId = {
   id: string;
@@ -6,13 +6,6 @@ export type WithId = {
 export type LoginData = {
   userName: string;
   password: string;
-};
-
-type Purchase = {
-  products: Product[];
-  date: string;
-  amount: string;
-  isOpen: boolean;
 };
 
 export type UserNoId = LoginData & {
@@ -23,5 +16,6 @@ export type UserNoId = LoginData & {
   postalCode: string;
   city: string;
   purchaseHistory: Purchase[];
+  role: string;
 };
 export type User = WithId & UserNoId;

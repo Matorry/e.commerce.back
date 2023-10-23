@@ -1,5 +1,10 @@
-export type Product = {
-  id: number;
+import { User } from './user';
+
+export type WithId = {
+  id: string;
+};
+
+export type ProductNoId = {
   title: string;
   price: number;
   description: string;
@@ -9,4 +14,7 @@ export type Product = {
     rate: number;
     count: number;
   };
+  author: User;
 };
+
+export type Product = WithId & ProductNoId;

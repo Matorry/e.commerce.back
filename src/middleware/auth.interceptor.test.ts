@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../entities/user';
 import { Repository } from '../repository/repository.js';
+import { UserMongoRepository } from '../repository/user.mongo.repository';
 import { Auth } from '../services/auth.js';
 import { HttpError } from '../types/http.error.js';
 import { AuthInterceptor } from './auth.interceptor';
@@ -71,6 +72,33 @@ describe('Given AuthInterceptor and instantiate it', () => {
       } as Request;
       await authenticationMiddleware(mockRequest, mockResponse, mockNext);
       expect(mockNext).toHaveBeenCalledWith(new Error('No token provided'));
+    });
+  });
+  describe('When we use adminAuthenticacion', () => {
+    test('Then if user is not an admin', async () => {
+      const mockReq = {
+        body: { validatedId: 'test' },
+      } as unknown as Request;
+      const mockUser = { id: 'test', role: 'user' } as User;
+      const mockRes = {} as Response;
+      const mockNext = jest.fn();
+      UserMongoRepository.prototype.get = jest
+        .fn()
+        .mockResolvedValueOnce(mockUser);
+      await interceptor.adminAuthentication(mockReq, mockRes, mockNext);
+      expect(mockNext).toHaveBeenCalled();
+    });
+    test('Then if getById return error', async () => {
+      const mockReq = {
+        body: { validatedId: 'test' },
+      } as unknown as Request;
+      const mockRes = {} as Response;
+      const mockNext = jest.fn();
+      UserMongoRepository.prototype.get = jest
+        .fn()
+        .mockRejectedValueOnce('error');
+      await interceptor.adminAuthentication(mockReq, mockRes, mockNext);
+      expect(mockNext).toHaveBeenCalledWith('error');
     });
   });
 });

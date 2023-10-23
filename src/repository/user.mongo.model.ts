@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { User } from '../entities/user.js';
+
 const userSchema = new Schema<User>({
   userName: {
     type: String,
@@ -34,6 +35,18 @@ const userSchema = new Schema<User>({
   city: {
     type: String,
     required: true,
+  },
+  purchaseHistory: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Purchase',
+      required: true,
+    },
+  ],
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
   },
 });
 
