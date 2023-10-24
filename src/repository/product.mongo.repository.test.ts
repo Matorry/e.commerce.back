@@ -1,49 +1,50 @@
-import { UserModel } from './user.mongo.model.js';
-import { UserMongoRepository } from './user.mongo.repository.js';
+import { User } from '../entities/user.js';
+import { ProductModel } from './product.mongo.model.js';
+import { ProductMongoRepository } from './product.mongo.repository.js';
 jest.mock('fs/promises');
 describe('Given the class FilmMongoRepository', () => {
   const mockDataNoId = {
-    userName: 'test',
-    email: 'test@test.com',
-    password: '12345',
-    firstName: 'test',
-    lastName: 'test',
-    addressStreet: 'test',
-    postalCode: 'test',
-    city: 'test',
-    purchaseHistory: [],
-    role: 'user',
+    title: 'test',
+    price: 1,
+    description: 'test',
+    category: 'test',
+    image: 'test',
+    rating: {
+      rate: 1,
+      count: 1,
+    },
+    author: {} as User,
   };
   describe('When i instance it', () => {
-    const mockData = {
+    const mockProduct = {
       id: '1',
-      userName: 'test',
-      email: 'test@test.com',
-      password: '12345',
-      firstName: 'test',
-      lastName: 'test',
-      addressStreet: 'test',
-      postalCode: 'test',
-      city: 'test',
-      purchaseHistory: [],
-      role: 'user',
+      title: 'test',
+      price: 1,
+      description: 'test',
+      category: 'test',
+      image: 'test',
+      rating: {
+        rate: 1,
+        count: 1,
+      },
+      author: {} as User,
     };
 
-    UserModel.find = jest
+    ProductModel.find = jest
       .fn()
       .mockReturnValue({ exec: jest.fn().mockResolvedValue([]) });
-    UserModel.findById = jest.fn().mockReturnValueOnce({
+    ProductModel.findById = jest.fn().mockReturnValueOnce({
       populate: jest.fn().mockReturnValue({}),
       exec: jest.fn().mockResolvedValueOnce({}),
     });
-    UserModel.create = jest.fn().mockReturnValue(mockData);
-    UserModel.findByIdAndUpdate = jest
+    ProductModel.create = jest.fn().mockReturnValue(mockProduct);
+    ProductModel.findByIdAndUpdate = jest
       .fn()
-      .mockReturnValue({ exec: jest.fn().mockResolvedValue(mockData) });
-    UserModel.findByIdAndDelete = jest
+      .mockReturnValue({ exec: jest.fn().mockResolvedValue(mockProduct) });
+    ProductModel.findByIdAndDelete = jest
       .fn()
       .mockReturnValue({ exec: jest.fn().mockResolvedValue('ok') });
-    const repo = new UserMongoRepository();
+    const repo = new ProductMongoRepository();
     test('Then getAll should return data', async () => {
       const result = await repo.getAll();
       expect(result).toEqual([]);
@@ -53,16 +54,16 @@ describe('Given the class FilmMongoRepository', () => {
       expect(result).toEqual({});
     });
     test('Then patch should return data', async () => {
-      const result = await repo.patch(mockData.id, mockDataNoId);
-      expect(result).toEqual(mockData);
+      const result = await repo.patch(mockProduct.id, mockDataNoId);
+      expect(result).toEqual(mockProduct);
     });
     test('Then delete should return data', async () => {
-      const result = await repo.delete(mockData.id);
+      const result = await repo.delete(mockProduct.id);
       expect(result).toEqual(undefined);
     });
     test('Then post should return data', async () => {
       const result = await repo.post(mockDataNoId);
-      expect(result).toEqual(mockData);
+      expect(result).toEqual(mockProduct);
     });
     test('Then search should return data', async () => {
       const result = await repo.search({ key: '', value: '' });
@@ -70,24 +71,24 @@ describe('Given the class FilmMongoRepository', () => {
     });
   });
   describe('When i instance it', () => {
-    const repo = new UserMongoRepository();
+    const repo = new ProductMongoRepository();
     test('Then get should return error', async () => {
       const mockExec = jest.fn().mockResolvedValue(null);
-      UserModel.findById = jest.fn().mockReturnValue({
+      ProductModel.findById = jest.fn().mockReturnValue({
         exec: mockExec,
       });
       expect(repo.get('')).rejects.toThrow();
     });
     test('Then patch should return error', async () => {
       const mockExec = jest.fn().mockResolvedValue(null);
-      UserModel.findByIdAndUpdate = jest.fn().mockReturnValue({
+      ProductModel.findByIdAndUpdate = jest.fn().mockReturnValue({
         exec: mockExec,
       });
       expect(repo.patch('', mockDataNoId)).rejects.toThrow();
     });
     test('Then delete should return error', async () => {
       const mockExec = jest.fn().mockResolvedValue(null);
-      UserModel.findByIdAndDelete = jest.fn().mockReturnValue({
+      ProductModel.findByIdAndDelete = jest.fn().mockReturnValue({
         exec: mockExec,
       });
       expect(repo.delete('')).rejects.toThrow();
@@ -99,7 +100,7 @@ describe('Given the class FilmMongoRepository', () => {
         username: 'testuser',
         password: 'password123',
       };
-      const user = new UserModel(userData);
+      const user = new ProductModel(userData);
       const userObject = user.toJSON();
       expect(userObject).not.toHaveProperty('_id');
       expect(userObject).not.toHaveProperty('__v');

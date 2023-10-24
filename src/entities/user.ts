@@ -13,6 +13,7 @@ type Purchase = {
   date: string;
   amount: string;
   isOpen: boolean;
+  author: User;
 };
 
 export type UserNoId = LoginData & {
@@ -23,5 +24,6 @@ export type UserNoId = LoginData & {
   postalCode: string;
   city: string;
   purchaseHistory: Purchase[];
+  role: string;
 };
 export type User = WithId & UserNoId;

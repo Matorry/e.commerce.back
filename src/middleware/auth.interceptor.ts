@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Repository } from '../repository/repository.js';
+import { UserMongoRepository } from '../repository/user.mongo.repository.js';
 import { Auth } from '../services/auth.js';
 import { HttpError } from '../types/http.error.js';
 export type WithId = {
@@ -40,5 +41,22 @@ export class AuthInterceptor {
         next(error);
       }
     };
+  }
+
+  async adminAuthentication(req: Request, _res: Response, next: NextFunction) {
+    const userId = req.body.validatedId;
+    try {
+      const repo = new UserMongoRepository();
+      const user = await repo.get(userId);
+
+      if (user.role !== 'admin') {
+        const error = new HttpError(403, 'Forbidden', 'Not authorizate');
+        next(error);
+      }
+
+      next();
+    } catch (error) {
+      next(error);
+    }
   }
 }
