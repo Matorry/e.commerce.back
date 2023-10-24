@@ -32,11 +32,6 @@ const productSchema = new Schema<Product>({
       required: true,
     },
   },
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
 });
 
 productSchema.set('toJSON', {
