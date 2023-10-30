@@ -5,6 +5,7 @@ jest.mock('fs/promises');
 describe('Given the class FilmMongoRepository', () => {
   const mockDataNoId = {
     title: 'test',
+    quantity: 1,
     price: 1,
     description: 'test',
     category: 'test',
@@ -18,6 +19,7 @@ describe('Given the class FilmMongoRepository', () => {
   describe('When i instance it', () => {
     const mockProduct = {
       id: '1',
+      quantity: 1,
       title: 'test',
       price: 1,
       description: 'test',
