@@ -49,6 +49,10 @@ const userSchema = new Schema<User>({
             type: String,
             required: true,
           },
+          quantity: {
+            type: Number,
+            required: true,
+          },
           id: {
             type: String,
             required: true,
